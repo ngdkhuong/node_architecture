@@ -11,13 +11,15 @@ const app = express();
 
 // Middleware
 // app.use(morgan("dev"))
-app.use(morgan('combined'));
-// morgan("common")
-// morgan("test")
-// morgan("tiny")
-// morgan("short")
+app.use(morgan('dev'));
 app.use(helmet());
 app.use(compression()); // giam memary
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    }),
+);
 
 // db
 instanceMongodb;

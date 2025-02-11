@@ -6,7 +6,7 @@ const DOCUMENT_NAME = 'User';
 const COLLECTION_NAME = 'Users';
 
 // Declare the Schema of the Mongo model
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         name: {
             type: String,
