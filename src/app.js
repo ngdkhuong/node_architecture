@@ -1,27 +1,31 @@
 import express from 'express';
 import morgan from 'morgan';
-import helmet from "helmet"
+import helmet from 'helmet';
 import compression from 'compression';
+import instanceMongodb from './databases/init.mongodb.js';
+import dotenv from 'dotenv';
+import router from './routes/index.js';
+
+dotenv.config();
 const app = express();
 
 // Middleware
 // app.use(morgan("dev"))
-app.use(morgan("combined"))
+app.use(morgan('combined'));
 // morgan("common")
 // morgan("test")
 // morgan("tiny")
 // morgan("short")
-app.use(helmet()) 
-app.use(compression()) // giam memary
+app.use(helmet());
+app.use(compression()); // giam memary
+
+// db
+instanceMongodb;
+import { checkOverLoad } from './helpers/check.connect.js';
+
+// checkOverLoad(); // kiem tra co load qua tai nen tat app
 
 // routes
-app.get('/', (req,res, next) => {
-    const testMemories = "Hello World"
-
-    return res.status(200).json({
-        message: "Welcome to the API server",
-        metadata: testMemories.repeat(10000)
-    })
-})
+app.use('/', router);
 
 export default app;
