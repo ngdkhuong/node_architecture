@@ -1,6 +1,6 @@
 'use strict';
 
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
 const DOCUMENT_NAME = 'Key';
 const COLLECTION_NAME = 'Keys';
@@ -9,21 +9,24 @@ const tokenSchema = new Schema(
     {
         user: {
             type: Schema.Types.ObjectId,
+            required: true,
             ref: 'User',
+        },
+        privateKey: {
+            type: String,
             required: true,
         },
-        // TODO: MINI System: --add private key
-        // privateKey: {
-        //     type: String,
-        //     required: true,
-        // },
         publicKey: {
             type: String,
             required: true,
         },
-        refreshToken: {
+        refreshTokensUsed: {
             type: Array,
-            default: [],
+            default: [], // Những refresh token đã được sử dụng
+        },
+        refreshToken: {
+            type: String,
+            required: true,
         },
     },
     {
@@ -35,4 +38,4 @@ const tokenSchema = new Schema(
 const tokenModel = model(DOCUMENT_NAME, tokenSchema);
 
 //Export the model
-export default tokenModel;
+module.exports = tokenModel;

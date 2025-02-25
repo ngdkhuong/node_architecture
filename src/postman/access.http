@@ -1,0 +1,22 @@
+@url_dev=http://localhost:3000/v1/api/
+
+### sign up
+POST {{url_dev}}users/signup HTTP/1.1
+Content-Type: application/json
+x-api-key: b9f934f1b9246d1c251b3febe23572453e620145ea799b72980fa0ef7177e50d925c0b0da2217196d2ea9d037ddcb9402869fd35700eb1adbc1165cabe46772a
+
+{
+    "name": "John Doe 1",
+    "email": "john.doe.2@example.com",
+    "password": "password"
+}
+
+### login
+POST {{url_dev}}/users/login HTTP/1.1
+Content-Type: application/json
+x-api-key: b9f934f1b9246d1c251b3febe23572453e620145ea799b72980fa0ef7177e50d925c0b0da2217196d2ea9d037ddcb9402869fd35700eb1adbc1165cabe46772a
+
+{
+    "email": "john.doe.2@example.com",
+    "password": "password"
+}

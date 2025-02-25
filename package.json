@@ -2,10 +2,11 @@
   "name": "backend_nodejs",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node --env-file=.env --watch server.js"
   },
   "keywords": [],
   "author": "",
@@ -13,11 +14,15 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "discord.js": "^14.18.0",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
     "lodash": "^4.17.21",
-    "mongoose": "^8.10.0"
+    "mongoose": "^8.10.0",
+    "redis": "^4.7.0",
+    "slugify": "^1.6.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",

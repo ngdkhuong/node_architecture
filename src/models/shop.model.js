@@ -1,6 +1,6 @@
 'use strict';
 
-import { model, Schema, Types } from 'mongoose';
+const { model, Schema, Types } = require('mongoose');
 
 const DOCUMENT_NAME = 'User';
 const COLLECTION_NAME = 'Users';
@@ -45,4 +45,4 @@ const userSchema = new Schema(
 const userModel = model(DOCUMENT_NAME, userSchema);
 
 //Export the model
-export default userModel;
+module.exports = userModel;

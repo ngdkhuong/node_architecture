@@ -1,7 +1,9 @@
 'use strict';
 
-import _ from 'lodash';
+const _ = require('lodash');
 
-export const getInfoData = ({ fields = [], object = {} }) => {
+const getInfoData = ({ fields = [], object = {} }) => {
     return _.pick(object, fields);
 };
+
+module.exports = getInfoData;

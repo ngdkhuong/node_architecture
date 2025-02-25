@@ -1,5 +1,5 @@
-import app from './src/app.js';
-import config from './src/configs/config.mongodb.js';
+const app = require('./src/app.js');
+const config = require('./src/configs/config.mongodb.js');
 
 const {
     app: { port },

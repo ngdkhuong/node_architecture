@@ -1,19 +1,14 @@
-import express from 'express';
-import morgan from 'morgan';
-import helmet from 'helmet';
-import compression from 'compression';
-import instanceMongodb from './databases/init.mongodb.js';
-import dotenv from 'dotenv';
-import router from './routes/index.js';
-
-dotenv.config();
+require('dotenv').config();
+const compression = require('compression');
+const express = require('express');
+const { default: helmet } = require('helmet');
+const morgan = require('morgan');
 const app = express();
 
-// Middleware
-// app.use(morgan("dev"))
+// init middlewares
 app.use(morgan('dev'));
 app.use(helmet());
-app.use(compression()); // giam memary
+app.use(compression());
 app.use(express.json());
 app.use(
     express.urlencoded({
@@ -21,13 +16,35 @@ app.use(
     }),
 );
 
-// db
-instanceMongodb;
-import { checkOverLoad } from './helpers/check.connect.js';
+//test pub.sub redis
+require('./tests/inventory.test');
+const productTest = require('./tests/product.test');
+productTest.purchaseProduct('product:001', 10);
 
-// checkOverLoad(); // kiem tra co load qua tai nen tat app
+// init db
+require('./databases/init.mongodb');
+// const { checkOverLoad } = require("./helpers/check.connect")
+// checkOverLoad();
 
-// routes
-app.use('/', router);
+// init routes
+app.use('/', require('./routes'));
 
-export default app;
+// handling error
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+});
+
+app.use((error, req, res, next) => {
+    console.log(error);
+
+    const statusCode = error.status || 500;
+    return res.status(statusCode).json({
+        status: 'error',
+        code: statusCode,
+        message: error.message || 'Internal Server Error',
+    });
+});
+
+module.exports = app;

@@ -1,6 +1,6 @@
 'use strict';
 
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
 const DOCUMENT_NAME = 'ApiKey';
 const COLLECTION_NAME = 'ApiKeys';
@@ -16,7 +16,7 @@ const apiKeySchema = new Schema(
             type: Boolean,
             default: true,
         },
-        permissions: {
+        permission: {
             type: [String],
             required: true,
             enum: ['0000', '1111', '2222'],
@@ -31,4 +31,4 @@ const apiKeySchema = new Schema(
 const apiKeyModel = model(DOCUMENT_NAME, apiKeySchema);
 
 //Export the model
-export default apiKeyModel;
+module.exports = apiKeyModel;

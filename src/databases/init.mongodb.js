@@ -1,8 +1,8 @@
 'use strict';
 
-import mongoose from 'mongoose';
-import { countConnect } from '../helpers/check.connect.js';
-import config from '../configs/config.mongodb.js';
+const mongoose = require('mongoose');
+const { countConnect } = require('../helpers/check.connect.js');
+const config = require('../configs/config.mongodb.js');
 
 const {
     db: { host, name, port: dbPort },
@@ -16,12 +16,12 @@ class Database {
     }
 
     //connect
-    connect() {
+    connect(type = 'mongodb') {
         mongoose
             .connect(connectString, {
-                maxPoolSize: 100,
+                maxPoolSize: 50,
             })
-            .then(() => {
+            .then((_) => {
                 console.log('Connect MongoDB successfully PRO', countConnect());
             })
             .catch((err) => {
@@ -30,9 +30,9 @@ class Database {
 
         // DEV
         if (1 === 1) {
-            // In case of dev, use local db
             mongoose.set('debug', true);
             mongoose.set('debug', { color: true });
+            mongoose.set('strictQuery', false);
         }
     }
 
@@ -47,4 +47,4 @@ class Database {
 // Create a singleton instance of the Database class
 const instanceMongodb = Database.getInstance();
 
-export default instanceMongodb;
+module.exports = instanceMongodb;
